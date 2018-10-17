@@ -20,12 +20,12 @@ num_activities = 27
 x1 = df.iloc[1:dataset_size, 0:dataset_columns].values
 x2 = cfdf.iloc[0:cf_dataset_size, 0:cf_dataset_columns].values
 
-# Step 2- Multiplying the equipment of each activity (zeros and ones) by the cells in the second sheet. 
+# Step 2: Multiplying the equipment of each activity (zeros and ones) by the cells in the second sheet.
 for i in range (0, dataset_size-2):
 	for j in range (6, dataset_columns):
-		x1[i+1][j] = int(x1[i+1][j]) * float(x2[(i % num_activities)+1][j - 3])
+		x1[i][j] = int(x1[i][j]) * float(x2[(i % num_activities)+1][j - 3])
 
-# Step 3- We need to have a cell for each individual showing their total quality of life (average of the qualities of all activities).
+# Step 3: We need to have a cell for each individual showing their total quality of life (average of the qualities of all activities).
 individual_qols = [] 
 for i in range(0, dataset_size-1, num_activities):
 	column_consumption = list(map(float, x1[i:i+num_activities, 4]))
