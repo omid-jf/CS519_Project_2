@@ -1,13 +1,7 @@
-import sys
 import pandas as pd
-import numpy as np
-import math
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
-from sklearn.linear_model import Ridge
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import mean_squared_error
+
 
 # Step 1: Load data
 df = pd.read_csv("raw_data.csv", header=0)
@@ -62,8 +56,6 @@ for i in range(0, dataset_size-1, num_activities):
     avg = sum(mult)/num_activities
     individual_qols.append(avg)
 
-print(individual_qols)
-
 # Step 5: Creating the clustering dataset (Each row containing the consumptions patterns of the individual)
 col_headers = ["Indnum"]
 col_headers.extend(list(df.loc[0:num_activities-1, "Activity"]))
@@ -92,13 +84,6 @@ plt.plot(range(1, 15), sse_list)
 plt.title("Finding the number of clusters (elbow method)")
 plt.ylabel("SSE")
 plt.xlabel("k")
+plt.show()
 plt.savefig('elbow.png')
 
-# Step 6: Clustering (using 10 clusters for now)
-kmeans = KMeans(n_clusters=10, random_state=1, init="k-means++")
-kmeans.fit(clustering_df)
-
-# Plotting the result (we plot Indnum against the Quality of Life Importance column)
-plt.scatter(clustering_df.iloc[:, 0], clustering_df.iloc[:, 28], c=kmeans.labels_, cmap="rainbow")
-plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 28], color="black")
-plt.show()
