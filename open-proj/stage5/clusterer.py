@@ -30,8 +30,5 @@ class Clusterer(object):
         cluster_map['data_index'] = self.data
         cluster_map['cluster'] = kmeans.labels_
 
-        for i in range(num_clusters):
-            print(str(cluster_map[cluster_map.cluster == 3]))
-
         print(cluster_map)
         print(kmeans.labels_)
